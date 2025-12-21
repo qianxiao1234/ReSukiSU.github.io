@@ -1,14 +1,8 @@
-@import url("https://unpkg.com/jetbrains-mono-webfont@latest/jetbrains-mono.css");
+@import url("https://s4.zstatic.net/npm/jetbrains-mono-webfont@latest/jetbrains-mono.css");
 
 :root {
-  --vp-font-family-base: "Misans VF Medium", -apple-system, BlinkMacSystemFont,
+  --vp-font-family-base: "Misans VF", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --vp-font-family-mono: "JetBrains Mono", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-strong {
-  font-family: "Misans VF Semibold", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-weight: 600;
 }
