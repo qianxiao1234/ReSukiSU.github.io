@@ -7,8 +7,14 @@
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "^2.18.2",
     "@nolebase/vitepress-plugin-inline-link-preview": "^2.18.2",
     "markdown-it-autospace": "^1.1.4",
+    "pagefind": "^1.4.0",
+    "remixicon": "^4.7.0",
     "vite-plugin-font": "^5.1.2",
     "vitepress": "^1.6.4",
+    "vitepress-plugin-codeblocks-fold": "^1.2.35",
+    "vitepress-plugin-comment-with-giscus": "^1.1.15",
+    "vitepress-plugin-image-viewer": "^1.1.6",
+    "vitepress-plugin-pagefind": "^0.4.18",
     "vue": "^3.5.26"
   },
   "scripts": {

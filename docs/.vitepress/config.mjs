@@ -3,6 +3,7 @@ import Font from 'vite-plugin-font'
 import { GitChangelog,GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
+import { chineseSearchOptimize,pagefindPlugin } from 'vitepress-plugin-pagefind'
 import mdAutoSpacing from 'markdown-it-autospace'
 
 // https://vitepress.dev/reference/site-config
@@ -37,6 +38,7 @@ export default defineConfig({
       md.use(mdAutoSpacing,{
         pangu: true,
         mojikumi: true,
+        spacingItems: ["code_inline"],
       })
     }
   },
@@ -46,7 +48,12 @@ export default defineConfig({
       GitChangelog({
         repoURL: () => 'https://github.com/ReSukiSU/resukisu-docs'
       }),
-      GitChangelogMarkdownSection(),
+      GitChangelogMarkdownSection({
+        exclude: (id) => id.endsWith('index.md'),
+      }),
+      pagefindPlugin({
+        customSearchQuery: chineseSearchOptimize
+      }),
     ],
     optimizeDeps: {
       exclude: [

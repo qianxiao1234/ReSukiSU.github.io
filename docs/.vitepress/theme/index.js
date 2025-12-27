@@ -7,12 +7,18 @@ import {
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesScreenMenu
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import { NolebaseInlineLinkPreviewPlugin } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 
+
+/ plugin css /
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css'
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 import '@nolebase/vitepress-plugin-enhanced-mark/client/style.css'
+import '@nolebase/vitepress-plugin-inline-link-preview/client/style.css'
 import 'markdown-it-autospace/spacing.css'
+
+/ style css /
 import { css } from './MisansVF.ttf'
 import './style.css'
 import './fonts.css'
@@ -31,6 +37,7 @@ export default {
   enhanceApp({ app, router, siteData }) {
     // ...
     app.use(css),
-    app.use(NolebaseGitChangelogPlugin)
+    app.use(NolebaseGitChangelogPlugin),
+    app.use(NolebaseInlineLinkPreviewPlugin)
   }
 }
