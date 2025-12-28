@@ -16,5 +16,8 @@ hero:
     - theme: alt
       text: Github
       link: https://github.com/ReSukiSU/ReSukiSU
+    - theme: alt
+      text: About ReSukiSU
+      link: /guide/introduce
 ---
 

@@ -12,9 +12,12 @@ hero:
   actions:
     - theme: brand
       text: 快速上手
-      link: /guide/install
+      link: ./guide/install
     - theme: alt
       text: Github
       link: https://github.com/ReSukiSU/ReSukiSU
+    - theme: alt
+      text: 关于项目
+      link: ./guide/introduce
 ---
 

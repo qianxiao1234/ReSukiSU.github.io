@@ -5,8 +5,8 @@ export default defineConfig ({
     themeConfig: {
         description: "Make SukiSU Great Again!",
         nav: [
-        { text: 'Home', link: '/' },
-        { text: 'Guide', link: '/guide/install' }
+        { text: '<i class="ri-home-2-fill"></i> Home', link: '/' },
+        { text: '<i class="ri-book-2-fill"></i> Guide', link: '/guide/install' }
         ],
         sidebar: [
         {
@@ -14,12 +14,17 @@ export default defineConfig ({
             collapsed: true,
             items: [
             { text: 'Install', link: '/guide/install' },
-            { text: 'Kernel hooks',items: [
-                { text: 'manual hook', link: '/guide/manual-hooks' }
+            { text: 'Building Kernel',items: [
+                { text: 'Build', link: '/zh_CN/guide/build'},
+                { text: 'Manual Hooks', link: '/guide/manual-hooks' }
             ]},
             ]
-        }
+        },
+        { text:"About ReSukiSU",link: "/guide/introduce"}
         ],
+        editLink: {
+            text: "Edit on Github"
+        }
     }
     }
 )

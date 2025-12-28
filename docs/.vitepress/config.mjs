@@ -27,6 +27,13 @@ export default defineConfig({
     footer: {
       message: "Documented by ReSukiSU Devloperment"
     },
+    editLink: {
+      pattern: "https://github.com/ReSukiSU/ReSukiSU.github.io/edit/main/docs/:path"
+    },
+    outline: {
+      level: [2,4]
+    },
+    externalLinkIcon: true
   },
   markdown: {
     config: (md) => {
@@ -43,7 +50,7 @@ export default defineConfig({
     plugins: [
       Font.vite({}),
       GitChangelog({
-        repoURL: () => 'https://github.com/ReSukiSU/resukisu-docs'
+        repoURL: () => 'https://github.com/ReSukiSU/ReSukiSU.github.io'
       }),
       GitChangelogMarkdownSection({
         exclude: (id) => id.endsWith('index.md'),

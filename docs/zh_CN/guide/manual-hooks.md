@@ -1,36 +1,12 @@
-# 如何为内核集成 ReSukiSU {#introduction}
+# 手动钩子补丁参考 {#hooks}
 
-[kernelsu]: https://kernelsu.org
+## KernelSU 官方 manual hook {#manual-hooks}
 
-
-::: tip Notes
-这个文档修改自 [KernelSU官方文档][kernelsu]
+::: tip Note
+这一部分取自 [KernelSU官方文档](https://kernelsu.org),并根据现状添加了需要的钩子
 :::
 
-
-由于非 GKI 内核的碎片化极其严重，因此通常没有统一的方法来编译它。但你完全可以自己集成 ReSukiSU 然后编译内核使用。
-
-当然这个部分也适用于GKI内核
-
-首先，你必须有能力从你设备的内核源码编译出一个可以开机并且能正常使用的内核，如果内核不开源，这通常难以做到。
-
-如果你已经做好了上述准备，可以通过这个教程来集成 ReSukiSU 到你的内核之中。
-
-
-首先，把 ReSukiSU 添加到你的内核源码树，在内核的根目录执行以下命令：
-
-```sh
-curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s builtin
-```
-
-请注意，某些设备的 defconfig 文件可能在`arch/arm64/configs/设备代号_defconfig`或位于`arch/arm64/configs/vendor/设备代号_defconfig`。在您的 defconfig 文件中，将`CONFIG_KSU`设置为`y`以启用 ReSukiSU，或设置为`n`以禁用。比如在某个 defconfig 中：
-`arch/arm64/configs/...` 
-```sh
-+# ReSukiSU
-+CONFIG_KSU=y
-```
-
-然后，将 ReSukiSU 调用添加到内核源代码中，这里有几个补丁可以参考：
+这里有几个补丁可以参考：
 
 ::: code-group
 
@@ -190,7 +166,7 @@ index 344ceaf5e..2b2a35f71 100644
 5. reboot，通常位于 `kernel/reboot.c`
 
 ::: danger IMPORTANT
-reboot钩子是必须添加的，否则如 `ZygiskNext` 等需要通过ksud获取内核版本进行检查的模块导致其安装失败
+reboot钩子是必须添加的，否则如 `ZygiskNext` 等需要通过ksud获取内核版本进行检查的模块会导致其安装失败
 :::
 
 如果你的内核没有 `vfs_statx` 或者 内核版本 >= 6.1 , 使用 `vfs_fstatat` 来代替它：
@@ -252,16 +228,12 @@ index 2ff887661237..e758d7db7663 100644
  		return -EINVAL;
 ```
 
-## 安全模式 
+### 安全模式 
 
 要使用 ReSukiSU 内置的安全模式，你还需要修改 `drivers/input/input.c` 中的 `input_handle_event` 方法：
 
 :::tip
-强烈建议开启此功能，对用户救砖会非常有帮助！
-:::
-
-:::info 莫名其妙进入安全模式？
-如果你采用手动集成的方式，并且没有禁用`CONFIG_KPROBES`，那么用户在开机之后按音量下，也可能触发安全模式！因此如果使用手动集成，你需要关闭 `CONFIG_KPROBES`！
+强烈建议开启此功能，对救砖会非常有帮助！
 :::
 
 ```diff
@@ -291,7 +263,7 @@ index 45306f9ef247..815091ebfca4 100755
  		add_input_randomness(type, code, value);
 ```
 
-## path_umount {#how-to-backport-path-umount}
+### path_umount {#how-to-backport-path-umount}
 
 ::: info Notes
 这是一个可选选项，你可以不移植这一部分
@@ -344,4 +316,19 @@ index 45306f9ef247..815091ebfca4 100755
   * This is important for filesystems which use unnamed block devices.
 ```
 
-改完之后重新编译内核即可。
+
+
+## 最小化钩子 {#scope-minimized-hooks}
+
+:::info Note
+这一部分的钩子，请查看 [`backslashxx/KernelSU #5`](https://github.com/backslashxx/KernelSU/issues/5)
+
+这里不作重复赘述
+:::
+
+## 一些可参考的补丁
+
+|地址|说明|
+|--|--|
+|[`rksuorg/kernel_patches`](https://github.com/rksuorg/kernel_patches)|基于 [官方 manual](manual-hooks.md#manual-hooks) 的补丁|
+|[`WildKernels/kernel_patches`](https://github.com/WildKernels/kernel_patches/tree/main/next)|基于 [最小化钩子](manual-hooks.md#scope-minimized-hooks) 的补丁|
