@@ -37,6 +37,7 @@ jobs:
         with:
           path: ./docs/.vitepress/dist
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: pages
     permissions:
       pages: write
