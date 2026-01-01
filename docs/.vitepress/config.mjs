@@ -14,7 +14,6 @@ export default defineConfig({
   locales: locale.locales,
   head: [
     ['link',{rel:"icon",href:'/favicon.svg'}],
-    ['link',{rel:"preconnect",href:'https://s4.zstatic.net/'}],
     ['link',{rel:"stylesheet",href:'https://s4.zstatic.net/npm/jetbrains-mono-webfont@latest/jetbrains-mono.css'}],
     ['link',{rel:"stylesheet",href:'https://s4.zstatic.net/npm/remixicon@latest/fonts/remixicon.css'}]
   ],
@@ -26,9 +25,6 @@ export default defineConfig({
     ],
     footer: {
       message: "Documented by ReSukiSU Devloperment"
-    },
-    editLink: {
-      pattern: "https://github.com/ReSukiSU/ReSukiSU.github.io/edit/main/docs/:path"
     },
     outline: {
       level: [2,4]

@@ -23,7 +23,8 @@ export default defineConfig ({
         {text: '关于 ReSukiSU',link:'/zh_CN/guide/introduce'}
         ],
         editLink:{
-            text: "在 Github 上编辑此页面"
+            text: "在 Github 上编辑此页面",
+            pattern: "https://github.com/ReSukiSU/ReSukiSU.github.io/edit/main/docs/:path"
         }
     }
     }

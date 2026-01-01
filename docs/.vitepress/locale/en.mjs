@@ -22,7 +22,8 @@ export default defineConfig ({
         { text:"About ReSukiSU",link: "/guide/introduce"}
         ],
         editLink: {
-            text: "Edit on Github"
+            text: "Edit page on Github",
+            pattern: "https://github.com/ReSukiSU/ReSukiSU.github.io/edit/main/docs/:path"
         }
     }
     }
