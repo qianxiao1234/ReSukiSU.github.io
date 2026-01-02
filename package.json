@@ -1,4 +1,13 @@
 {
+  "name": "ReSukiSU-docs",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "ReSukiSU documents",
+  "type": "module",
+  "private":true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "dependencies": {
     "@nolebase/markdown-it-bi-directional-links": "^2.18.2",
     "@nolebase/vitepress-plugin-enhanced-mark": "^2.18.2",
