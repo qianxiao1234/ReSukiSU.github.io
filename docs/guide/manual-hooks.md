@@ -1,16 +1,16 @@
 # Manual hooks reference {#hooks}
 
 ::: danger Notice：
-ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译失败**
+ReSukiSU will check every hook here, and if any are missing, it will **cause compilation to fail**.
 :::
 
-## 最小化钩子 {#scope-minimized-hooks}
+## scope-minimized manual hooks {#scope-minimized-hooks}
 
-:::info 提示
-这一部分的钩子，改编于 [`backslashxx/KernelSU #5`](https://github.com/backslashxx/KernelSU/issues/5)
+:::info info
+The hook in this part is adapted from [`backslashxx/KernelSU #5`](https://github.com/backslashxx/KernelSU/issues/5)
 :::
 
-### execve/newfstatat/reboot/input hooks
+### generic hooks
 ::: code-group
 
 ```diff[exec.c]
@@ -141,7 +141,7 @@ ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译�
 :::
 
 ### faccessat hook
-对于此 hook，不同版本内核不一致，此处单独说明
+For this hook, different kernel versions are inconsistent, so it is explained separately here
 
 ::: code-group
 
@@ -194,8 +194,8 @@ ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译�
  		return -EINVAL;
 ```
 ### setuid hooks
-:::warning 大部分版本不需要此手动 hook
-对于 6.8- 内核，只需保证 CONFIG_KSU_MANUAL_HOOK_AUTO_SETUID_HOOK 处于启用状态，此 hook 即可通过 LSM 自动应用
+:::warning Most versions do not require this manual hook.
+For kernel belows 6.8, This hook can be automatically applied via LSM as long as CONFIG_KSU_MANUAL_HOOK_AUTO_SETUID_HOOK is enabled.
 :::
 
 ::: code-group
@@ -230,8 +230,8 @@ index 4a87dc5fa..aac25df8c 100644
 :::
 
 ### sys_read hook
-:::warning 大部分版本不需要此手动 hook
-对于 6.8- 内核，只需保证 CONFIG_KSU_MANUAL_HOOK_AUTO_INITRC_HOOK 处于启用状态，此 hook 即可通过 LSM 自动应用
+:::warning Most versions do not require this manual hook.
+For kernel belows 6.8, This hook can be automatically applied via LSM as long as CONFIG_KSU_MANUAL_HOOK_AUTO_INITRC_HOOK is enabled.
 :::
 
 ::: code-group
@@ -285,8 +285,8 @@ index 4a87dc5fa..aac25df8c 100644
 ```
 :::
 ### selinux hook
-:::warning 大部分版本不需要此手动 hook
-此 hook 只适用于 4.9- 内核，防止出现 无法获取 root
+:::warning Most versions do not require this manual hook.
+For kernel higher 4.9, This hook is no need, this is hook is only for 4.9- modules not working
 :::
 ::: code-group
 ```diff[hooks.c]
@@ -322,7 +322,7 @@ static int check_nnp_nosuid(const struct linux_binprm *bprm,
 ```
 :::
 
-## KernelSU 官方 manual hook {#manual-hooks}
+## KernelSU offical manual hook {#manual-hooks}
 
 ::: info Note
 This part picked from [KernelSU's document](https://kernelsu.org),and added hooks that was needed in the situations.
