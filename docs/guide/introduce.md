@@ -1,14 +1,13 @@
-# 关于 ReSukiSU
+# About ReSukiSU
+ 
+## What is ReSukiSU? {#what-is-resukisu}
+ 
+A downstream fork of SukiSU Ultra that removes obsolete or unnecessary components.
+ 
+## Project Aim {#the-aim}
+ 
+To stabilize SukiSU — that’s all.
+ 
+## Why Was This Project Created? {#why}
 
-## 什么是 ReSukiSU? {#what-is-resukisu}
-
-一个SukiSU Ultra的下游fork，移除一些已经过时或者不需要的东西
-
-## 项目目的 {#the-aim}
-
-让SukiSU变得稳定下来，就这样
-
-## 为什么会创建这个项目？{#why}
-
-由于 <mark>ShirkNeko的代码质量及commit习惯问题</mark>，且近段时间SukiSU出现的bug很多，我们**难以忍受**，便创建了这个项目
-
+Due to <mark>issues with ShirkNeko's code quality and commit habits, coupled with the numerous bugs that have emerged in SukiSU recently</mark>, we could no longer tolerate the situation and thus initiated this project

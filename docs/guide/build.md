@@ -1,24 +1,24 @@
-# 如何为内核集成 ReSukiSU {#introduction}
+# How to intregate ReSukiSU {#introduction}
 
 ::: info Notes
-这个文档修改自 [KernelSU官方文档](https://kernelsu.org)
+This document modified from [KernelSU Official Documentation](https://kernelsu.org)
 :::
 
-ReSukiSU 可以被集成到GKI/非 GKI 内核中，现在它<mark>最低支持到内核 4.9 版本</mark>；理论上也可以支持更低的版本。
+ReSukiSU can be integrated into non-GKI kernels and was backported to 4.14 and earlier versions.
 
-由于非 GKI 内核的碎片化**极其严重**，因此通常没有统一的方法来编译它。但你完全可以自己集成 ReSukiSU 然后编译内核使用。
+Due to the fragmentation of non-GKI kernels, we don't have a universal way to build them; therefore, we cannot provide a non-GKI boot.img. However, you can build the kernel with ReSukiSU integrated on your own.
 
-首先，你必须有能力从你设备的内核源码编译出一个可以开机并且能正常使用的内核，如果内核不开源，这通常难以做到。
+First, you should be able to build a bootable kernel from kernel source code. If the kernel isn't open source, then it is difficult to run ReSukiSU for your device.
 
-如果你已经做好了上述准备，可以通过这个教程来集成 ReSukiSU 到你的内核之中。
+If you're able to build a bootable kernel, you can add ReSukiSU into your kernel by following this guide.
 
-## 构建内核
+## Building Kernel
 
 ::: warning
-本部分仅适用于 GKI 设备
+This part is for GKI devices
 :::
 
-### 同步内核源码
+### Sync the kernel source code
 
 ```sh
 repo init -u https://android.googlesource.com/kernel/manifest
@@ -27,35 +27,36 @@ repo init -m manifest.xml
 repo sync
 ```
 
-`<kernel_manifest.xml>` 是一个可以唯一确定构建的清单文件，您可以使用该清单进行可重新预测的构建。 您应该从 [通用内核映像 (GKI) 发布构建](https://source.android.com/docs/core/architecture/kernel/gki-release-builds) 下载清单文件 
+The `<kernel_manifest.xml>` file is a manifest that uniquely identifies a build, allowing you to make it reproducible. To do this, you should download the manifest file from [GKI release builds](https://source.android.com/docs/core/architecture/kernel/gki-release-builds).
 
-### 构建
+### Build
 
-请先查看 [官方文档](https://source.android.com/docs/setup/build/building-kernels)。
+Please check the [Building kernels](https://source.android.com/docs/setup/build/building-kernels) first.
 
-例如，我们需要构建 aarch64 内核镜像：
+For example, to build an `aarch64` kernel image:
 
 ```sh
 LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
 ```
 
-不要忘记添加 `LTO=thin`, 否则，如果您的计算机内存小于 24GB，构建可能会失败.
+Don't forget to add the `LTO=thin` flag; otherwise, the build may fail if your computer has less than 24 GB of memory.
 
-从 Android 13 开始，内核由 `bazel` 构建:
+Starting from Android 13, the kernel is built by `bazel`:
 
 ```sh
 tools/bazel build --config=fast //common:kernel_aarch64_dist
 ```
 
-## 使用 ReSukiSU 构建内核
+## Build kernel with ReSukiSU
 
-把 ReSukiSU 添加到你的内核源码树，在内核的根目录执行以下命令：
+First, add ReSukiSU to your kernel source tree:：
 
 ```sh
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s builtin
 ```
 ::: tip
-请注意，某些设备的 defconfig 文件可能在`arch/arm64/configs/设备代号_defconfig`或位于`arch/arm64/configs/vendor/设备代号_defconfig`。在您的 defconfig 文件中，将`CONFIG_KSU`设置为`y`以启用 ReSukiSU，或设置为`n`以禁用。比如在某个 defconfig 中：
+Keep in mind that, on some devices, your defconfig may be located at `arch/arm64/configs` or in other cases, it may be at `arch/arm64/configs/vendor/your_defconfig`. Regardless of the defconfig you're using, make sure to enable `CONFIG_KSU` with `y` to enable or `n` to disable it. For example, if you choose to enable it, your defconfig should contain the following string：
+
 `arch/arm64/configs/...` 
 ```diff
 +# ReSukiSU
@@ -64,4 +65,5 @@ curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup
 ```
 :::
 
-然后，将 [ReSukiSU 调用添加到内核源代码](manual-hooks.md) 中，改完之后重新编译内核即可。
+Then,add [ReSukiSU's hooks](manual-hooks.md) into your kernel, and build your kernel again, and ReSukiSU should work correctly.
+
