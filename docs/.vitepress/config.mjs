@@ -25,7 +25,8 @@ export default defineConfig({
       { icon: 'telegram', link: 'https://t.me/ReSukiSU'}
     ],
     footer: {
-      message: "Documented by ReSukiSU Devloperment"
+      message: "Documented by ReSukiSU Devloperment",
+      copyright: "Copyright © 2025-2026 ReSukiSU,under MIT License"
     },
 
     outline: {
