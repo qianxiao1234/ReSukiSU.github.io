@@ -12,7 +12,6 @@ export default defineConfig ({
         sidebar: [
         {
             text: '开始使用',
-            collapsed: true,
             items: [
             { text: '安装', link: '/zh_CN/guide/install' },
             { text: '构建内核', link: '/zh_CN/guide/build',collapsed: true,items: [

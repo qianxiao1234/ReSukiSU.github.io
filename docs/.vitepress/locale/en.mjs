@@ -11,7 +11,6 @@ export default defineConfig ({
         sidebar: [
         {
             text: 'Get started',
-            collapsed: true,
             items: [
             { text: 'Install', link: '/guide/install' },
             { text: 'Building Kernel', link: '/guide/build',collapsed:true, items: [
