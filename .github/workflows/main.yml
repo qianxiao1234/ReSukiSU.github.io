@@ -1,6 +1,7 @@
 name: Pages
 
 on:
+  workfolw_dispatch:
   push:
     branches:
       - main # default branch
