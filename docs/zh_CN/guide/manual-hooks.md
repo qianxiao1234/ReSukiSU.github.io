@@ -59,6 +59,11 @@ ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译�
 +__attribute__((hot)) 
 +extern int ksu_handle_stat(int *dfd, const char __user **filename_user,
 +				int *flags);
++
++extern void ksu_handle_newfstat_ret(unsigned int *fd, struct stat __user **statbuf_ptr);
++#if defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_COMPAT_STAT64)
++extern void ksu_handle_fstat64_ret(unsigned int *fd, struct stat64 __user **statbuf_ptr); // optional
++#endif
 +#endif
 +
  #if !defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_SYS_NEWFSTATAT)
@@ -84,6 +89,36 @@ ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译�
  	error = vfs_fstatat(dfd, filename, &stat, flag);
  	if (error)
  		return error;
+
+@@ -364,X +364,XX @@  
+SYSCALL_DEFINE2(newfstat, unsigned int, fd, struct stat __user *, statbuf)
+{
+	struct kstat stat;
+	int error = vfs_fstat(fd, &stat);
+
+	if (!error)
+		error = cp_new_stat(&stat, statbuf);
+
++#ifdef CONFIG_KSU
++	ksu_handle_newfstat_ret(&fd, &statbuf);
++#endif
+	return error;
+
+ 
+@@ -490,X +497,X @@
+SYSCALL_DEFINE2(fstat64, unsigned long, fd, struct stat64 __user *, statbuf)
+{
+	struct kstat stat;
+	int error = vfs_fstat(fd, &stat);
+
+	if (!error)
+		error = cp_new_stat64(&stat, statbuf);
+
++#ifdef CONFIG_KSU // for 32-bit
++	ksu_handle_fstat64_ret(&fd, &statbuf);
++#endif
+	return error;
+}
 ```
 ```diff[reboot.c]
 --- a/kernel/reboot.c
@@ -110,77 +145,6 @@ ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译�
  	/* We only trust the superuser with rebooting the system. */
  	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))
  		return -EPERM;
-```
-:::
-
-### newfstat hook
-
-对于此 hook，不同版本内核不一致，此处单独说明
-
-::: code-group
-
-```diff[4.14+]
---- a/fs/stat.c
-+++ b/fs/stat.c
-+#ifdef CONFIG_KSU_MANUAL_HOOK
-+extern void ksu_handle_newfstat_ret(unsigned int *fd, struct stat __user **statbuf_ptr);
-+#ifdef CONFIG_COMPAT
-+extern void ksu_compat_newfstat_ret(unsigned int *fd, struct compat_stat __user **statbuf_ptr);
-+#endif
-+#endif
-+
-SYSCALL_DEFINE2(newfstat, unsigned int, fd, struct stat __user *, statbuf)
-{
-  struct kstat stat;
-  int error = vfs_fstat(fd, &stat);
-
-  if (!error)
-    error = cp_new_stat(&stat, statbuf);
-
-+#ifdef CONFIG_KSU_MANUAL_HOOK
-+  ksu_handle_newfstat_ret(&fd, &statbuf);
-+#endif
-  return error;
-}
-
-@@ -659,6 +669,10 @@ 
-
-COMPAT_SYSCALL_DEFINE2(newfstat, unsigned int, fd,
-           struct compat_stat __user *, statbuf)
-{
-  struct kstat stat;
-  int error = vfs_fstat(fd, &stat);
-
-  if (!error)
-    error = cp_compat_stat(&stat, statbuf);
-
-+#ifdef CONFIG_KSU_MANUAL_HOOK // 32-on-64
-+  ksu_compat_newfstat_ret(&fd, &statbuf);
-+#endif
-  return error;
-
-```
-
-```diff[4.9-]
---- a/fs/stat.c
-+++ b/fs/stat.c
-+#ifdef CONFIG_KSU_MANUAL_HOOK
-+extern void ksu_handle_newfstat_ret(unsigned int *fd, struct stat __user **statbuf_ptr);
-+#endif
-+
-SYSCALL_DEFINE2(newfstat, unsigned int, fd, struct stat __user *, statbuf)
-{
-  struct kstat stat;
-  int error = vfs_fstat(fd, &stat);
-
-  if (!error)
-    error = cp_new_stat(&stat, statbuf);
-
-+#ifdef CONFIG_KSU_MANUAL_HOOK
-+  ksu_handle_newfstat_ret(&fd, &statbuf);
-+#endif
-  return error;
-}
 ```
 :::
 
