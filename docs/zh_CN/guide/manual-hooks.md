@@ -10,7 +10,7 @@ ReSukiSU 将会检查此处每一条 hook，如果缺少，将会**导致编译�
 这一部分的钩子，改编于 [`backslashxx/KernelSU #5`](https://github.com/backslashxx/KernelSU/issues/5)
 :::
 
-### 通用hooks
+### 通用hooks {#generic-hooks}
 ::: code-group
 
 ```diff[exec.c]
@@ -148,7 +148,7 @@ SYSCALL_DEFINE2(fstat64, unsigned long, fd, struct stat64 __user *, statbuf)
 ```
 :::
 
-### faccessat hook
+### faccessat hook {#faccessat-hook}
 对于此 hook，不同版本内核不一致，此处单独说明
 
 ::: code-group
@@ -201,7 +201,8 @@ SYSCALL_DEFINE2(fstat64, unsigned long, fd, struct stat64 __user *, statbuf)
  	if (mode & ~S_IRWXO)	/* where's F_OK, X_OK, W_OK, R_OK? */
  		return -EINVAL;
 ```
-### input hooks
+
+### input hooks {#input-hooks}
 :::warning 一般无需此手动 hook
 对于input handler 未损坏的内核，只需保证 `CONFIG_KSU_MANUAL_HOOK_AUTO_INPUT_HOOK` 处于启用状态，此 hook 即可通过 input_hanlder 自动应用
 :::
@@ -235,7 +236,8 @@ SYSCALL_DEFINE2(fstat64, unsigned long, fd, struct stat64 __user *, statbuf)
  		spin_lock_irqsave(&dev->event_lock, flags);
 ```
 :::
-### setuid hooks
+
+### setuid hooks {#setuid-hooks}
 :::warning 大部分版本不需要此手动 hook
 对于 6.8- 内核，只需保证 `CONFIG_KSU_MANUAL_HOOK_AUTO_SETUID_HOOK` 处于启用状态，此 hook 即可通过 LSM 自动应用
 :::
@@ -271,7 +273,7 @@ index 4a87dc5fa..aac25df8c 100644
 ```
 :::
 
-### sys_read hook
+### sys_read hook {#sys-read-hook}
 :::warning 大部分版本不需要此手动 hook
 对于 6.8- 内核，只需保证 `CONFIG_KSU_MANUAL_HOOK_AUTO_INITRC_HOOK` 处于启用状态，此 hook 即可通过 LSM 自动应用
 :::
@@ -326,7 +328,7 @@ index 4a87dc5fa..aac25df8c 100644
  		ret = vfs_read(f.file, buf, count, &pos);
 ```
 :::
-### selinux hook
+### selinux hook {#selinux-hook}
 :::warning 大部分版本不需要此手动 hook
 此 hook 只适用于 4.9- 内核，防止出现 无法获取 root
 :::
@@ -664,7 +666,7 @@ index 4a87dc5fa..aac25df8c 100644
  	ksuid = make_kuid(ns, suid);
 ```
 
-### path_umount {#how-to-backport-path-umount}
+## path_umount {#how-to-backport-path-umount}
 
 ::: info Notes
 这是一个可选选项，你可以不移植这一部分
