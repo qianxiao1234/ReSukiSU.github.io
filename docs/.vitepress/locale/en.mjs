@@ -16,7 +16,7 @@ export default {
             items: [
             { text: 'Install', link: '/guide/install' },
             { text: 'Building Kernel', link: '/guide/build',collapsed:true, items: [
-                { text: 'Manual Hooks', link: '/guide/manual-hooks' }
+                { text: 'Manual Hooks', link: '/guide/manual-integrate' }
             ]},
             { text: 'FAQ', link: '/guide/faq' }
             ]

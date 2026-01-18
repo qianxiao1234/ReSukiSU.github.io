@@ -30,7 +30,7 @@ features:
   - title: Minimal Hooks
     details: Compatible with the latest scope-minimized hooks. No need to manually select hooks anymore.
     icon: <i class="ri-flashlight-fill"></i>
-    link: ./guide/manual-hooks.md
+    link: ./guide/manual-integrate.md
   - title: KPM Support
     details: Based on SukiSU Ultra, theoretically supports Kernel Patch Modules (KPM). Note that this feature is experimental.
     icon: <i class="ri-puzzle-2-fill"></i>

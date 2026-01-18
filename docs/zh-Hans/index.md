@@ -30,7 +30,7 @@ features:
   - title: 最小化钩子兼容
     details: 兼容当前最新的最小化钩子方案，无需手动选择 hook。
     icon: <i class="ri-flashlight-fill"></i>
-    link: ./guide/manual-hooks.md
+    link: ./guide/manual-integrate.md
   - title: KPM 支持
     details: 基于 SukiSU Ultra 分支，理论上支持内核补丁模块 (KPM)。注意此功能仍在开发中。
     icon: <i class="ri-puzzle-2-fill"></i>

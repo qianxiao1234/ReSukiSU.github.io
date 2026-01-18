@@ -65,5 +65,5 @@ Keep in mind that, on some devices, your defconfig may be located at `arch/arm64
 ```
 :::
 
-Then,add [ReSukiSU's hooks](manual-hooks.md) into your kernel, and build your kernel again, and ReSukiSU should work correctly.
+Then,add [ReSukiSU's hooks](manual-integrate.md) into your kernel, and build your kernel again, and ReSukiSU should work correctly.
 

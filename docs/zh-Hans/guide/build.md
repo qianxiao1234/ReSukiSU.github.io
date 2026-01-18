@@ -64,4 +64,4 @@ curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup
 ```
 :::
 
-然后，将 [ReSukiSU 调用添加到内核源代码](manual-hooks.md) 中，改完之后重新编译内核即可。
+然后，将 [ReSukiSU 调用添加到内核源代码](manual-integrate.md) 中，改完之后重新编译内核即可。

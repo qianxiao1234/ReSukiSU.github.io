@@ -17,7 +17,7 @@ export default {
             items: [
             { text: '安装', link: '/zh-Hans/guide/install' },
             { text: '构建内核', link: '/zh-Hans/guide/build',collapsed: true,items: [
-                { text: '参考钩子', link: '/zh-Hans/guide/manual-hooks' }
+                { text: '参考钩子', link: '/zh-Hans/guide/manual-integrate' }
             ]},
             { text: '常见问题', link: '/zh-Hans/guide/faq' }
             ]
