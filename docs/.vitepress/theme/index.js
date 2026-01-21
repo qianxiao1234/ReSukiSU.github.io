@@ -6,6 +6,7 @@ import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-chang
 import { NolebaseHighlightTargetedHeading } from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
 import { NolebaseInlineLinkPreviewPlugin } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 import codeblocksFold from 'vitepress-plugin-codeblocks-fold'
+import CopyOrDownloadAsMarkdownButtons from 'vitepress-plugin-llms/vitepress-components/CopyOrDownloadAsMarkdownButtons.vue'
 
 / plugin css /
 import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css'
@@ -35,6 +36,7 @@ export default {
     app.use(css),
     app.use(NolebaseGitChangelogPlugin),
     app.use(NolebaseInlineLinkPreviewPlugin)
+    app.component('CopyOrDownloadAsMarkdownButtons', CopyOrDownloadAsMarkdownButtons)
   },
   setup() {
     const { frontmatter } = useData();

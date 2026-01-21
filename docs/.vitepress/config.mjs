@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import Font from 'vite-plugin-font'
+import llmstxt from 'vitepress-plugin-llms'
+import { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms'
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
@@ -58,6 +60,7 @@ export default defineConfig({
   markdown: {
     config: (md) => {
       md.use(BiDirectionalLinks())
+      md.use(copyOrDownloadAsMarkdownButtons)
       md.use(InlineLinkPreviewElementTransform)
       md.use(mdAutoSpacing, {
         pangu: true,
@@ -70,6 +73,7 @@ export default defineConfig({
   vite: {
     plugins: [
       Font.vite({}),
+      llmstxt(),
       GitChangelog({
         repoURL: () => 'https://github.com/ReSukiSU/ReSukiSU.github.io'
       }),
