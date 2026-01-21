@@ -4,17 +4,16 @@
 ## Devlopment
 
 ```shell
-npm install -g yarn@1.22.22
-yarn install
+pnpm install
 
 # dev
-yarn docs:dev --host
+pnpm docs:dev --host
 
 # build
-yarn docs:build
+pnpm docs:build
 
 # preview
-yarn docs:preview
+pnpm docs:preview
 ```
 
 ## Notes
